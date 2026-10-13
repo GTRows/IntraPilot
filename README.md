@@ -32,6 +32,7 @@ are required independently of the plugin.
 - [Current status](docs/STATUS.md)
 - [Security and release acceptance](SECURITY.md)
 - [Contributor instructions](AGENTS.md)
+- [AI Base development tooling](docs/DEVELOPMENT.md)
 - [Empty example deployment policy](config/internal-model-policy.example.json)
 
 ## Verify the foundation

@@ -13,3 +13,14 @@
 - Preserve one writer. Read-only reviewers may inspect the design and changes.
 - Run `python scripts/verify-bootstrap.py` to verify the project foundation. This is not runtime or network-safety verification.
 - Claim no-egress only with built-artifact review and observed runtime evidence. The host IDE, model gateway, and network policy have separate boundaries.
+
+<!-- AI-BASE:BEGIN ai-base -->
+# AI Base project integration
+
+Read .ai/rules/workspace.md and the existing project instructions first.
+The project owns task state, memory, handoff, and read-only review.
+AI Base supplies lifecycle callbacks and a compact routing checkpoint only.
+Use intrapilot-handoff before manual compaction with the hook's exact binding.
+Automatic compaction must not be blocked for a missing checkpoint.
+Preserve one writer and verify current files before resuming.
+<!-- AI-BASE:END ai-base -->

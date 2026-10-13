@@ -47,3 +47,17 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Modified for IntraPilot: machine-local AI Base development integration.
+.codex/
+.ai/manifest.yml
+.ai/project-profile.yml
+.ai/integration.json
+.ai/generated/
+.ai/.state/
+.ai/task-state.json
+.ai/memory/
+.ai/reports/
+.ai/overrides/backups/
+.ai/overrides/retired/
+__pycache__/

@@ -11,6 +11,9 @@ Branch: development
 - Original SVG icons for light/dark IDE themes.
 - Internal-only design, security contract, empty example deployment policy.
 - Separate Gradle startup/publication blockers and disabled fork Actions.
+- AI Base 0.2.2 development integration: Codex only, lightweight project-owned
+  workflow, local lifecycle callbacks, and `intrapilot-handoff`. See
+  `docs/DEVELOPMENT.md`; this is not plugin runtime functionality.
 
 ## Not yet delivered
 
@@ -43,3 +46,10 @@ Do not use inherited runtime settings as trusted deployment policy.
   publication gate. Foundation review also corrected intrinsic UI icon sizes,
   clarified the two-gate procedure, and added identity/state isolation plus
   coexistence checks to the implementation plan.
+- AI Base doctor/diff/repeat-init/sync passed without conflicts or managed
+  changes. Original contributor instructions and 816 source/blocker files were
+  preserved. Four offline callback checks passed; native Codex trust/execution
+  remains unverified and was not changed. Development tooling is outside the
+  plugin runtime and does not establish product network confinement.
+- Read-only review of the AI Base integration found no actionable defects and
+  independently checked ownership, preservation, ignore rules, and doctor/diff.
