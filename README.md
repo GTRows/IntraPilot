@@ -1,133 +1,58 @@
-<a name="readme-top"></a>
+# IntraPilot
 
-<br />
-<div align="center">
-  <a href="https://github.com/carlrobertoh/ProxyAI">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="/src/main/resources/icons/proxyRounded_dark.svg">
-      <img alt="ProxyAI Logo" src="/src/main/resources/icons/proxyRounded.svg">
-    </picture>
-  </a>
-  <h1 style="margin: 0;" align="center">ProxyAI</h1>
-  <p style="width: 640px">
-    The leading open-source AI copilot for <a target="_blank" href="https://plugins.jetbrains.com/plugin/21056-proxy-ai">JetBrains</a>. Connect to any model in any environment, and customize your coding experience in any way you like.
-  </p>
-</div>
+![IntraPilot](src/main/resources/META-INF/pluginIcon.svg)
 
-[![Downloads][downloads-shield]][plugin-repo]
-[![Rating][rating-shield]][plugin-repo]
-[![Discord][discord-shield]][invite-link]
-[![Version][version-shield]][plugin-repo]
+An independent JetBrains assistant fork targeting approved organization-hosted
+model servers. Based on [ProxyAI](https://github.com/carlrobertoh/ProxyAI).
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li><a href="#about-the-project">About The Project</a></li>
-    <li><a href="#core-features">Core Features</a></li>
-    <li><a href="#running-locally">Running Locally</a></li>
-    <li><a href="#privacy">Privacy</a></li>
-    <li><a href="#feedback">Feedback</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details>
+**Development foundation only. The inherited runtime is not yet converted and
+must not be installed or launched on confidential projects.**
 
-![Plugin screenshot](https://tryproxy.io/images/main.png)
+## Required product behavior
 
-## About The Project
+- Connect only to explicitly approved internal model servers, including Qwen.
+- No public cloud/free-model providers or fallback.
+- No model inference, model weights, or model server running on the workstation.
+- No telemetry, analytics, remote crash reports, account sync, or plugin-owned
+  update requests.
+- Retain project file reading/search, approved edits/diff previews, IDE
+  diagnostics, chat, agents, and task tracking.
+- Exclude web search/fetch, Context7, remote MCP, external agents, arbitrary shell
+  execution, and project run/debug execution from the first release.
+- Invalid policy, server, or model configuration stops the action.
 
-ProxyAI is an AI-powered code assistant designed to help you with various programming activities. It is a great alternative to GitHub Copilot, AI Assistant, Codiumate, or any other extension on the JetBrains marketplace.
+These are acceptance requirements, not claims about the inherited code.
+Deployment network restrictions and verification of the internal model gateway
+are required independently of the plugin.
 
-We equip you with the latest models, advanced tools, and on-premise solutions that are designed to significantly enhance your developer experience.
+## Project documents
 
-Access top-tier language models from OpenAI, Anthropic, Azure, Mistral, and others, or opt for a self-hosted model for a full offline experience.
+- [Design](docs/INTERNAL_ONLY_DESIGN.md)
+- [Implementation plan](docs/IMPLEMENTATION_PLAN.md)
+- [Current status](docs/STATUS.md)
+- [Security and release acceptance](SECURITY.md)
+- [Contributor instructions](AGENTS.md)
+- [Empty example deployment policy](config/internal-model-policy.example.json)
 
-## Core Features
+## Verify the foundation
 
-ProxyAI offers a wide range of features to enhance your development experience:
+Run `python scripts/verify-bootstrap.py` and `git diff --check`.
+This verifies project metadata, icons, documentation, and the initial blocker;
+it does not build or launch the inherited plugin or prove network confinement.
 
-### Chat
+`STARTUP_BLOCKED` initially stops all Gradle execution. After source conversion
+and review, validation builds may proceed while `RELEASE_BLOCKED` still prevents
+signing/publication. No bypass flag is provided. Fork GitHub Actions is disabled.
 
-- **Auto Apply:** Stream AI-suggested code changes directly into your editor. Preview modifications in diff view and approve or reject them with a single click.
+## Distribution target
 
-- **Use images:** Chat with your images. Upload manually or let ProxyAI auto-detect your screenshots. 
+JetBrains Marketplace publication and a reviewed offline ZIP, after complete
+security conversion, runtime observation, package review, and Plugin Verifier.
+Host-IDE Marketplace installation/update traffic is separate from plugin runtime
+traffic and must be controlled separately in restricted deployments.
 
-- **Reference your files and folders:** Quickly access and reference your project files and folders for context-aware coding assistance.
+## License and origin
 
-- **Reference web docs:** Quickly reference web docs in your chat session, such as API guides, library manuals, and more. 
-
-- **Reference git history:** Quickly reference commit logs and changes in your chat session 
-
-- **Search the web:** Connect your favourite LLM to the web. ProxyAI will search for the most relevant information to answer your questions. 
-
-- **Customize your assistant:** Choose between multiple different personas for your specific needs, whether you're looking to learn, write or proofread.
-
-### Code
-
-
-- **Next edits:** Get multi-line edits based on your recent activity as you type.
-
-- **Autocomplete your code:** Receive single-line or whole-function autocomplete suggestions as you type.
-
-- **Edit code in natural language:** Highlight the code you want to modify, describe the desired changes, and watch ProxyAI work its magic.
-
-- **Get name suggestions:** Get context-aware naming suggestions for methods, variables, and more.
-
-- **Generate commit messages:** Generate concise and descriptive commit messages based on the changes made in your codebase.
-
-For a full list of features and detailed descriptions, visit our [official documentation](https://docs.tryproxy.io/features).
-
-## Running locally
-
-**Linux or macOS**
-```shell
-git clone https://github.com/carlrobertoh/ProxyAI.git
-cd ProxyAI
-git submodule update
-./gradlew runIde
-```
-
-**Windows ARM64**
-```shell
-./gradlew runIde -Penv=win-arm64
-```
-
-**Tailing logs**
-```shell
-tail -f build/idea-sandbox/IU-2026.1/log/idea.log
-```
-
-## Privacy
-
-**Your data stays yours.** ProxyAI **does not** collect or store any kind of sensitive information.
-
-However, with users' consent, we do collect anonymous usage data, which we use to understand how users interact with the extension, including the most-used features and preferred providers.
-
-## Feedback
-
-Your input helps us grow. Reach out through:
-
-- [Issue Tracker](https://github.com/carlrobertoh/ProxyAI/issues)
-- [Discord](https://discord.gg/8dTGGrwcnR)
-- [Email](mailto:carlrobertoh@gmail.com)
-
-## License
-
-Apache 2.0 © [Carl-Robert Linnupuu][portfolio]
-
-If you found this project interesting, kindly rate it on the marketplace and don't forget to give it a star. Thanks again!
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[downloads-shield]: https://img.shields.io/jetbrains/plugin/d/21056-proxy-ai
-[discord-shield]: https://img.shields.io/discord/1118629761049182238?style=flat&logo=discord&label=Discord
-[version-shield]: https://img.shields.io/jetbrains/plugin/v/21056-proxy-ai?label=version
-[rating-shield]: https://img.shields.io/jetbrains/plugin/r/rating/21056-proxy-ai
-[marketplace-img]: https://github.com/carlrobertoh/CodeGPT-docs/blob/main/images/marketplace.png?raw=true
-[plugin-repo]: https://plugins.jetbrains.com/plugin/21056-proxy-ai
-[invite-link]: https://discord.gg/8dTGGrwcnR
-[open-issues]: https://github.com/carlrobertoh/ProxyAI/issues
-[api-key-url]: https://platform.openai.com/account/api-keys
-[portfolio]: https://carlrobert.ee
+Apache-2.0. ProxyAI Copyright 2023 Carl-Robert Linnupuu.
+See [LICENSE](LICENSE), [NOTICE](NOTICE), and notices in inherited source.
+This is an independent fork, not an upstream-endorsed ProxyAI release.

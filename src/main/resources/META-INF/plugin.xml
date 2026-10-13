@@ -1,7 +1,8 @@
+<!-- Modified for IntraPilot; see NOTICE. Runtime conversion is pending. -->
 <idea-plugin>
-  <id>ee.carlrobert.chatgpt</id>
-  <name>Proxy AI</name>
-  <vendor email="carlrobertoh@gmail.com" url="https://carlrobert.ee">Carl-Robert Linnupuu</vendor>
+  <id>io.github.gtrows.intrapilot</id>
+  <name>IntraPilot</name>
+  <vendor url="https://github.com/GTRows/IntraPilot">GTRows</vendor>
   <depends>com.intellij.modules.platform</depends>
   <depends>com.intellij.modules.lang</depends>
   <depends optional="true" config-file="plugin-kotlin.xml">org.jetbrains.kotlin</depends>
@@ -27,7 +28,7 @@
     <postStartupActivity implementation="ee.carlrobert.codegpt.CodeGPTProjectActivity"/>
     <postStartupActivity implementation="ee.carlrobert.codegpt.CodeGPTUpdateActivity"/>
     <editorFactoryListener implementation="ee.carlrobert.codegpt.CodeGPTEditorFactoryListener"/>
-    <applicationConfigurable id="settings.codegpt" parentId="tools" displayName="ProxyAI"
+    <applicationConfigurable id="settings.codegpt" parentId="tools" displayName="IntraPilot"
       instance="ee.carlrobert.codegpt.settings.GeneralSettingsConfigurable"/>
 
     <projectConfigurable id="settings.codegpt.agents" parentId="settings.codegpt"
@@ -50,7 +51,7 @@
       displayName="Providers"
       instance="ee.carlrobert.codegpt.settings.service.ServiceConfigurable" groupWeight="30"/>
     <applicationConfigurable id="settings.codegpt.services.codegpt"
-      parentId="settings.codegpt.services" displayName="ProxyAI"
+      parentId="settings.codegpt.services" displayName="IntraPilot"
       instance="ee.carlrobert.codegpt.settings.service.codegpt.CodeGPTServiceConfigurable"
       groupWeight="40"/>
     <applicationConfigurable id="settings.codegpt.services.anthropic"
@@ -138,7 +139,7 @@
     <inline.completion.provider
       id="CodeGPTInlineCompletionProvider"
       implementation="ee.carlrobert.codegpt.codecompletions.DebouncedCodeCompletionProvider"/>
-    <toolWindow id="ProxyAI" icon="ee.carlrobert.codegpt.Icons.DefaultSmall" anchor="right"
+    <toolWindow id="IntraPilot" icon="ee.carlrobert.codegpt.Icons.DefaultSmall" anchor="right"
       factoryClass="ee.carlrobert.codegpt.toolwindow.ProxyAIToolWindowFactory"/>
     <notificationGroup id="proxyai.notification.group" displayType="BALLOON"
       key="notification.group.name"/>

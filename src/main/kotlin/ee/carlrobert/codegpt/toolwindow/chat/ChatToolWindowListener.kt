@@ -1,3 +1,4 @@
+// Modified for IntraPilot; see NOTICE.
 package ee.carlrobert.codegpt.toolwindow.chat
 
 import com.intellij.openapi.project.Project
@@ -7,7 +8,7 @@ import com.intellij.openapi.wm.ex.ToolWindowManagerListener
 class ChatToolWindowListener : ToolWindowManagerListener {
 
     override fun toolWindowShown(toolWindow: ToolWindow) {
-        if ("ProxyAI" == toolWindow.id) {
+        if ("IntraPilot" == toolWindow.id) {
             requestFocusForTextArea(toolWindow.project)
         }
     }

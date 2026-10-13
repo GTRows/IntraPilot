@@ -1,3 +1,4 @@
+// Modified for IntraPilot; see NOTICE.
 package ee.carlrobert.codegpt.actions.editor;
 
 import com.intellij.openapi.actionSystem.ActionManager;
@@ -62,7 +63,7 @@ public class EditorActionsUtil {
     ActionManager actionManager = ActionManager.getInstance();
     var actionId = convertToId(action.getTemplateText());
     if (actionManager.getAction(actionId) == null) {
-      actionManager.registerAction(actionId, action, PluginId.getId("ee.carlrobert.chatgpt"));
+      actionManager.registerAction(actionId, action, PluginId.getId("io.github.gtrows.intrapilot"));
     }
   }
 

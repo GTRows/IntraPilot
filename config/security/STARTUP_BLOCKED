@@ -1,0 +1,5 @@
+INHERITED_RUNTIME_NOT_CONVERTED
+
+Do not launch, build, or test the inherited runtime.
+Clear only after Task 1 source-boundary review permits synthetic validation.
+Keep RELEASE_BLOCKED through runtime acceptance and release review.

@@ -1,0 +1,4 @@
+INTERNAL_ONLY_CONVERSION_PENDING
+
+Signing and publication remain blocked after validation builds are enabled.
+Remove only after SECURITY.md runtime acceptance and release review are met.

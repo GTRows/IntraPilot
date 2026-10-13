@@ -1,0 +1,9 @@
+IntraPilot
+Derived from ProxyAI, Copyright 2023 Carl-Robert Linnupuu.
+Upstream: https://github.com/carlrobertoh/ProxyAI
+Initial upstream commit: 1c7a8569fe5e34bb64cbc10fa32e6918e8358d98
+
+IntraPilot changes: project identity, original vector logo, internal-only product
+design, release blocker, contributor guidance, and bootstrap verification.
+Original license and applicable notices remain in LICENSE and inherited files.
+The inherited runtime has not yet completed the internal-only conversion.

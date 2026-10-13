@@ -1,3 +1,4 @@
+// Modified for IntraPilot; see NOTICE.
 package ee.carlrobert.codegpt.toolwindow.chat;
 
 import static java.util.Objects.requireNonNull;
@@ -112,13 +113,13 @@ public final class ChatToolWindowContentManager {
 
   public @NotNull ToolWindow getToolWindow() {
     var toolWindowManager = ToolWindowManager.getInstance(project);
-    var toolWindow = toolWindowManager.getToolWindow("ProxyAI");
+    var toolWindow = toolWindowManager.getToolWindow("IntraPilot");
     if (toolWindow != null) {
       return toolWindow;
     }
 
     var registeredToolWindow = toolWindowManager.registerToolWindow(
-        "ProxyAI",
+        "IntraPilot",
         true,
         ToolWindowAnchor.RIGHT);
     registeredToolWindow.setIcon(Icons.DefaultSmall);

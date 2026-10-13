@@ -1,3 +1,4 @@
+// Modified for IntraPilot; see NOTICE.
 package ee.carlrobert.codegpt;
 
 import static java.io.File.separator;
@@ -11,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class CodeGPTPlugin {
 
-  public static final PluginId CODEGPT_ID = PluginId.getId("ee.carlrobert.chatgpt");
+  public static final PluginId CODEGPT_ID = PluginId.getId("io.github.gtrows.intrapilot");
 
   private CodeGPTPlugin() {
   }

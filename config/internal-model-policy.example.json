@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "approvedDestinations": [],
+  "approvedModelIds": [],
+  "allowPublicNetwork": false,
+  "allowProviderFallback": false,
+  "allowTelemetry": false,
+  "allowLocalInference": false,
+  "allowExternalAgents": false,
+  "allowShellExecution": false,
+  "allowRemoteMcp": false
+}

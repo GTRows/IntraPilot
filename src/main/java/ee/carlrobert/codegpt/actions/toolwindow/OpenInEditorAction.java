@@ -1,3 +1,4 @@
+// Modified for IntraPilot; see NOTICE.
 package ee.carlrobert.codegpt.actions.toolwindow;
 
 import static java.lang.String.format;
@@ -52,7 +53,7 @@ public class OpenInEditorAction extends AnAction {
         VirtualFile file = new LightVirtualFile(fileName, fileContent);
         FileEditorManager.getInstance(project).openFile(file, true);
         var toolWindow = requireNonNull(
-            ToolWindowManager.getInstance(project).getToolWindow("ProxyAI"));
+            ToolWindowManager.getInstance(project).getToolWindow("IntraPilot"));
         toolWindow.hide();
       }
     } finally {

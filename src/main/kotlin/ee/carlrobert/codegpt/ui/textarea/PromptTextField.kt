@@ -1,3 +1,4 @@
+// Modified for IntraPilot; see NOTICE.
 package ee.carlrobert.codegpt.ui.textarea
 
 import com.intellij.codeInsight.lookup.LookupEvent
@@ -1228,7 +1229,7 @@ class PromptTextField(
             editor.contentComponent.preferredSize.height + PromptTextFieldConstants.HEIGHT_PADDING
         val minimumHeight = calculateMinimumHeight(editor)
 
-        val toolWindow = project.service<ToolWindowManager>().getToolWindow("ProxyAI")
+        val toolWindow = project.service<ToolWindowManager>().getToolWindow("IntraPilot")
         val maxHeight = if (toolWindow == null || !toolWindow.component.isAncestorOf(this)) {
             JBUI.scale(600)
         } else {

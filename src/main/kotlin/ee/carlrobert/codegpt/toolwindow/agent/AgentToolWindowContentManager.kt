@@ -1,3 +1,4 @@
+// Modified for IntraPilot; see NOTICE.
 package ee.carlrobert.codegpt.toolwindow.agent
 
 import com.intellij.openapi.Disposable
@@ -66,7 +67,7 @@ class AgentToolWindowContentManager(private val project: Project) : Disposable {
     }
 
     private fun selectAgentTab() {
-        val toolWindow = ToolWindowManager.getInstance(project).getToolWindow("ProxyAI") ?: return
+        val toolWindow = ToolWindowManager.getInstance(project).getToolWindow("IntraPilot") ?: return
         toolWindow.show()
 
         val contentManager = toolWindow.contentManager

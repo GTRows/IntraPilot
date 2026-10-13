@@ -1,3 +1,4 @@
+<!-- Modified for IntraPilot; see NOTICE. -->
 <idea-plugin>
     <actions>
         <group id="CodeGPT.VcsLogContextMenu">
@@ -13,7 +14,7 @@
         </group>
 
         <group id="CodeGPT.GenerateGitCommitMessageGroup"
-               text="ProxyAI"
+               text="IntraPilot"
                popup="true"
                icon="ee.carlrobert.codegpt.Icons.DefaultSmall">
             <add-to-group group-id="Vcs.MessageActionGroup" anchor="first"/>
