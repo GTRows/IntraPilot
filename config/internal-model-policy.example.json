@@ -11,8 +11,27 @@
   "allowShellExecution": false,
   "allowRemoteMcp": false,
   "features": {
+    "chatEnabled": false,
+    "agentEnabled": false,
+    "fileContextEnabled": false,
+    "projectSearchEnabled": false,
+    "diagnosticsEnabled": false,
+    "editActionsEnabled": false,
+    "writeActionsEnabled": false,
+    "taskTrackingEnabled": false,
     "inlineEditEnabled": false,
     "inlineCompletionEnabled": false,
-    "nextEditEnabled": false
+    "nextEditEnabled": false,
+    "autoApplyEnabled": false,
+    "commitMessageEnabled": false,
+    "nameSuggestionsEnabled": false,
+    "skillsEnabled": false,
+    "subagentsEnabled": false,
+    "bitbucketEnabled": false,
+    "projectRulesEnabled": false,
+    "taskMemoryEnabled": false,
+    "reviewModeEnabled": false,
+    "connectionCheckEnabled": false,
+    "usageTrackingEnabled": false
   }
 }

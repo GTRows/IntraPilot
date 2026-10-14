@@ -62,8 +62,16 @@ def main():
     require(policy["approvedDestinations"] == [] and policy["approvedModelIds"] == [], "Example must contain no deployment values")
     require(policy["approvedBitbucketDestinations"] == [], "Example must contain no internal Bitbucket address")
     require(all(value is False for key, value in policy.items() if key.startswith("allow")), "Example allows a forbidden surface")
-    require(set(policy["features"]) == {"inlineEditEnabled", "inlineCompletionEnabled", "nextEditEnabled"}, "Missing independent inline controls")
-    require(all(value is False for value in policy["features"].values()), "Inline features must start disabled")
+    expected_features = {
+        "chatEnabled", "agentEnabled", "inlineEditEnabled", "inlineCompletionEnabled",
+        "fileContextEnabled", "projectSearchEnabled", "diagnosticsEnabled",
+        "editActionsEnabled", "writeActionsEnabled", "taskTrackingEnabled",
+        "nextEditEnabled", "autoApplyEnabled", "commitMessageEnabled", "nameSuggestionsEnabled",
+        "skillsEnabled", "subagentsEnabled", "bitbucketEnabled", "projectRulesEnabled",
+        "taskMemoryEnabled", "reviewModeEnabled", "connectionCheckEnabled", "usageTrackingEnabled",
+    }
+    require(set(policy["features"]) == expected_features, "Missing independent feature controls")
+    require(all(value is False for value in policy["features"].values()), "Example features must start disabled")
 
     resources = ROOT / "src/main/resources"
     for logo in LOGOS:

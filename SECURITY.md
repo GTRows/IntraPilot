@@ -33,6 +33,19 @@ toggles, initially disabled. A disabled feature must not collect background
 context, dispatch a request, schedule later work, or apply an in-flight result.
 Completion requires an approved server/model with appropriate capability; no
 unsupported feature may silently switch model or provider.
+All other user-facing features also have independent persistent switches;
+disabling one suppresses its execution/requests and pending result application.
+User settings cannot disable required security/approval controls or widen
+administrator-approved destinations.
+
+Token usage is local accounting, never telemetry. With usage recording enabled,
+persist only approved model ID, feature, UTC time, local request/attempt IDs,
+reported token counts, outcome and completeness. No prompts/source/responses,
+tool output, file paths, repository/server names, or credentials are recorded.
+The Usage dashboard makes no model, public-network, chart-CDN, or sync request.
+Recording off stops new usage persistence and backfill; existing records remain.
+Incomplete/missing usage and disabled-recording coverage are visible rather
+than represented as zero spend or complete lifetime/server-wide totals.
 
 Bitbucket starts with read-only repositories/branches/commits/PRs/diffs. No
 push, merge, PR creation/comment, webhook, or remote write is included. Tokens
@@ -91,6 +104,18 @@ Remove `RELEASE_BLOCKED` only after all of the following have evidence and revie
     fixtures, denied destinations, token redaction, paging links, redirects,
     and missing/expired/revoked tokens. Actual internal hosting is confirmed
     locally before deployment; no production token or content is used here.
+12. Independent switches suppress each feature, background/in-flight work, and
+    dependent subagent/tool execution without weakening mandatory security rules.
+    A retained-action inventory covers UI/context collectors and both chat and
+    agent tool routes, including Read/search/diagnostics/Edit/Write/task tracking
+    and overlapping inline/auto-apply mutation paths.
+13. Usage recording/aggregation survives concurrent requests, retries, duplicate
+    or partial streaming events, cancellation, and IDE restart without double
+    counting or fabricated zero/total counts. With recording disabled, totals
+    remain stable and coverage is marked incomplete.
+14. Usage storage, graphs, and tables are checked for secret/content leakage and
+    observed in the IntelliJ sandbox to create no network traffic. Filtered
+    totals match charts/tables and timezone boundaries are explicit.
 
 Passing `scripts/verify-bootstrap.py` proves only the repository foundation.
 It does not prove any item in the runtime release checklist.

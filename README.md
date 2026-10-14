@@ -14,6 +14,8 @@ must not be installed or launched on confidential projects.**
 - Free distribution; no paid-plugin licensing calls.
 - Optional token-authenticated read-only internal Bitbucket connection; no Bitbucket Cloud.
 - Separate inline edit/completion/next-edit switches, initially disabled.
+- Independent controls for all user features; mandatory security rules remain enforced.
+- Local recorded token totals, input/output summaries, daily Usage charts, and model/feature breakdown with explicit missing-data coverage.
 - No public cloud/free-model providers or fallback.
 - No model inference, model weights, or model server running on the workstation.
 - No telemetry, analytics, remote crash reports, account sync, or plugin-owned

@@ -9,6 +9,7 @@
 - Source/prompt content must never leave the organization. Internal model requests are permitted; Bitbucket credentials never enter model context, logs, or project files. Bitbucket Cloud is excluded.
 - No public model providers, free-model catalogs, telemetry, analytics, remote crash reporting, account sync, plugin-owned update requests, external agents, remote MCP, model downloads, or internet tools.
 - Missing or invalid policy/model configuration must stop the request. Never fall back to another provider or endpoint.
+- User-facing features have independent persistent switches; switches never weaken destination, credential, approval, or no-egress controls. Usage records and graphs stay local, contain no source/prompts/secrets, and use reported server counts with explicit missing-usage coverage.
 - Do not launch the inherited plugin. `config/security/STARTUP_BLOCKED` blocks Gradle execution until source-boundary review permits synthetic validation. `RELEASE_BLOCKED` separately blocks signing/publication until runtime acceptance.
 - Never remove or bypass either blocker merely to make a build pass. `STARTUP_BLOCKED` requires source-boundary review; `RELEASE_BLOCKED` requires the complete runtime evidence listed in `SECURITY.md`.
 - Preserve one writer. Read-only reviewers may inspect the design and changes.

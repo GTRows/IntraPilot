@@ -15,6 +15,9 @@ The user also requires free distribution, independent inline-feature toggles,
 and token-authenticated Bitbucket integration. The user confirmed organization-
 hosted Bitbucket Data Center/Server on 2026-10-14. Exact version, endpoint,
 authentication permissions, and actual connectivity remain deployment checks.
+The user also requires independently switchable user features and persisted
+token totals with a Usage chart/summary. These requirements apply to the
+product; the existing developer AI Base integration remains separate.
 
 Product identity: IntraPilot. Plugin ID: `io.github.gtrows.intrapilot`.
 Source: `https://github.com/GTRows/IntraPilot`.
@@ -75,6 +78,28 @@ instructions and model tool arguments as untrusted input.
 
 ## Inline controls and internal Bitbucket
 
+All user features have independent persistent controls: chat, agent, file/folder
+context selection and file reading, project search, IDE diagnostics, assistant
+edit/write actions, task tracking, inline
+edit, completion, next edit, auto apply, commit-message generation, name
+suggestions, skills, subagents, internal Bitbucket, project-rule loading,
+task memory, review mode, connection checks, and usage recording. The empty
+example policy starts all features off; the deployed settings UI lets users
+enable supported features within administrator policy. Disabling a parent
+mode stops dependent work without silently changing other saved switches.
+User switches cannot enable forbidden services or disable destination policy,
+token protection, project confinement, required approvals, or no-egress rules.
+
+Before implementation, inventory every retained UI action, context collector,
+registered tool and chat/agent route with its governing switch. File/folder
+context and Read use `fileContextEnabled`; project search uses
+`projectSearchEnabled`; Diagnostics uses `diagnosticsEnabled`; assistant edits
+and writes use `editActionsEnabled`/`writeActionsEnabled`; task tracking uses
+`taskTrackingEnabled`. Check these switches on chat routes as well as agent
+routes and at mutation application, so another tool/mode cannot bypass an off
+switch. Map overlapping Edit/Write/inline/auto-apply paths explicitly; required
+approval and confinement remain separate, always-enforced controls.
+
 Provide separate persistent switches for inline edit, inline completion, and
 next edit. Start all three disabled. Disabling a switch cancels/suppresses its
 requests, context collection, scheduling, and pending result application without
@@ -93,6 +118,45 @@ Version/auth compatibility is verified with synthetic fixtures before any real
 connection. Policy validates every request and pagination/redirect destination.
 The user confirmed internal hosting; verify its exact deployment locally. Never enable a public
 fallback or ask for production credentials in the public development project.
+
+## Local usage accounting and dashboard
+
+Record reported server usage for all approved model requests: chat, each agent
+iteration/subagent, inline actions, auto apply, review, commit messages, name
+suggestions, and other model-backed features. Track each transport attempt
+with its own ID under a logical request ID. Retries are separate attempts;
+duplicate/cumulative streaming usage for one attempt is never added twice.
+Usage already incurred is not removed when a suggestion is rejected.
+Existing tool/context token estimates are not spend measurements. Do not add
+tool-result estimates or already-counted subagent usage on top of reported
+request totals, and do not reuse those estimates for the persisted Usage ledger.
+
+Capture nullable input/output/total token counts, UTC time, approved model ID,
+feature, local request/attempt IDs, and completion/usage-coverage state. Server
+totals are authoritative; derive input+output only when both reported counts
+exist. Never add already-included cache/reasoning detail tokens a second time.
+Malformed, missing, interrupted, cancelled, or failed usage is shown as unknown
+or incomplete, never a zero-token success. Do not invent token estimates.
+
+Store a versioned append-only JSONL ledger under the IDE's local IntraPilot
+application data, outside project repositories. Keep writes off the UI thread,
+serialize concurrent writers, preserve crash/restart recovery, and deduplicate
+replayed attempt updates. No source text, prompts, responses, tool output,
+file paths, repository/server names, auth material, or public synchronization
+belongs in usage records. No chart library/CDN or new network request is needed.
+
+Usage shows recorded input/output/total token cards, recorded request counts,
+unknown-usage counts, daily input/output graph, and model/feature breakdown.
+Offer today, 7/30/90 days, and all-recorded-time ranges; store timestamps in UTC
+and display the timezone used for daily buckets. Totals persist across IDE
+restart and are consistent with chart/table filtering. Record completeness
+separately for partial responses and recording-disabled intervals.
+
+Usage recording has an independent switch. When off, no new usage events are
+persisted or backfilled; existing totals remain viewable and unchanged. Record
+the switch state/coverage boundary locally without making model/API requests.
+Label totals as recorded usage, not a complete organization-wide or server-wide
+bill, and expose incomplete coverage. No automatic export or deletion is added.
 
 ## Source conversion
 

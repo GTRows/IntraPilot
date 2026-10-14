@@ -21,6 +21,8 @@
 - Distribution is free. Source/context must never leave the organization; only approved internal model requests and optional read-only internal Bitbucket requests are permitted.
 - Bitbucket Cloud is excluded. The user confirmed internal Data Center/Server hosting; exact version/endpoint/auth are verified locally. Credentials stay in PasswordSafe, never prompts/config/logs.
 - Inline edit, completion, and next edit have independent persistent controls, initially off. Disabled features may not collect context, request, schedule, or apply results.
+- All user features have independent switches. Required network/credential/approval/confinement controls are immutable from user feature settings.
+- Usage is local persisted recorded input/output/total token accounting with charts/summary and visible completeness. No prompt/code/secret capture, remote analytics, fabricated counts, or double-counted attempts.
 
 ## Review focus
 
@@ -70,15 +72,17 @@
 - [ ] Verify no arbitrary command, external agent, run/debug process, remote MCP, URL fetch, or model download tool is registered or reachable.
 - [ ] Verify agent/subagent iterations with the internal client's synthetic tool-capable server.
 
-## Task 3a: Independent inline-feature controls
+## Task 3a: Independent user-feature controls
 
 **Files:** `settings/configuration/ConfigurationSettings.kt`, `settings/configuration/ConfigurationComponent.java`, `settings/configuration/CodeCompletionConfigurationForm.kt`, `inlineedit/`, `codecompletions/`, `nextedit/`, and their actual registered provider/listener callers (resolve callers before editing).
 
-**Consumes:** approved internal feature/model routing. **Produces:** persistent independent inline-edit, completion, and next-edit switches, all defaulting off.
+**Consumes:** approved internal feature/model routing. **Produces:** independent persistent switches for all user features, including inline edit/completion/next edit and usage recording, without weakening mandatory security controls.
 
 - [ ] Trace each feature's invocation, context collection, scheduling, request, cancellation, and result application before edits.
 - [ ] Add independent switches and capability validation; no unsupported model fallback.
 - [ ] Test fresh install, restart, toggling one feature independently, disabling during in-flight work, and configuration/capability changes. Assert no network/context collection or delayed application while disabled.
+- [ ] Extend the same switch contract to chat, agent, auto apply, commit/name generation, skills/subagents, Bitbucket, project rules, task memory, review, connection checks, and usage recording. Test dependent work when a parent mode is off; required security/approval policies remain enforced regardless of switches.
+- [ ] Inventory every retained UI action, context collector, registered tool, and chat/agent invocation route with its governing switch. Include file/folder context and Read, project search, Diagnostics, direct Edit/Write, and task tracking. Map overlapping inline/auto-apply/mutation routes and test that neither another tool nor chat bypasses a disabled action; mandatory approval/confinement remain enforced.
 
 ## Task 3b: Optional internal Bitbucket connection
 
@@ -91,6 +95,19 @@
 - [ ] Implement read-only API operations and explicit context selection. Include no git push, merge, PR/comment write, webhook, external browser login, public API, or MCP dependency.
 - [ ] Test expired/revoked/missing tokens, redaction, service switching, malicious paging URLs, redirects, outside-policy origins/paths/methods, and public-host denial using synthetic fixtures.
 - [ ] Assert auth secrets never appear in model messages, plain config, logs, exports, or redirected requests.
+
+## Task 3c: Local token usage ledger and Usage dashboard
+
+**Files:** create `usage/UsageRecord.kt`, `usage/UsageLedger.kt`, `usage/UsageAggregator.kt`, and `usage/UsagePanel.kt` beneath the existing Kotlin package; modify approved internal client request/stream callbacks and feature-switch settings; add synthetic usage/aggregation/ledger tests under the corresponding test package.
+
+**Consumes:** approved internal model requests with stable logical-request/transport-attempt identity and the usage-recording switch. **Produces:** local persisted token metrics, summary cards, daily graph, and model/feature breakdown without new network traffic.
+
+- [ ] Trace existing `conversations/message/TokenUsage.kt`, `agent/AgentUsageEvent.kt`, response metadata, stream parsing, and `agent/clients/RetryingPromptExecutor.kt` so every approved request/attempt is captured once.
+- [ ] Define nullable reported input/output/total counts, timestamp/model/feature/local IDs, and outcome/coverage. Derive total only from two reported parts when server total is absent; do not count cache/reasoning details twice or invent estimates.
+- [ ] Persist a versioned JSONL ledger outside project roots using serialized off-UI-thread writes. Deduplicate attempt updates and recover partial final records after crash/restart without rewriting history as zero usage.
+- [ ] Test concurrent requests, retry attempts, replayed/cumulative stream updates, missing/partial/malformed usage, cancellation, rejected edits, process restart, and recording switches mid-request. Assert no lost/duplicate known counts and visible unknown/off-interval coverage.
+- [ ] Implement recorded-total/input/output cards, request/unknown counts, daily chart, and model/feature tables for today, 7/30/90 days and all recorded time. Render locally with IDE UI components; UTC storage and displayed bucket timezone are explicit.
+- [ ] Test chart/table/summary consistency across filters/timezone boundaries and verify no new network calls or source/prompt/secret fields in storage. Recording off preserves existing viewable totals and stops new persistence/backfill.
 
 ## Task 4: Branding, settings, and package checks
 
@@ -114,6 +131,7 @@
 - [ ] Verify the internal gateway serves only approved internal models and native tools, with no external forwarding.
 - [ ] Observe actual IntelliJ DNS/network/process activity across startup, idle, chat, edit, tools, cancellation, errors, migration, and delayed background behavior using synthetic data. Test blocked public destinations independently.
 - [ ] Exercise real IntelliJ Bitbucket reads/paging, token rotation/removal, and service switching against an approved internal test service with synthetic content/test credentials. Observe request origins and confirm auth headers never reach the model or another origin. Exercise inline toggles during active requests in the same runtime observation.
+- [ ] Exercise every feature switch and Usage recording/viewing/restart/filtering in the IntelliJ sandbox. Observe no dashboard traffic and verify totals/completeness against synthetic server reports, including retries and unavailable usage.
 - [ ] Review the built artifact, transitive licenses, test evidence, compatible IDE range, privacy text, and release listing.
 - [ ] Choose free Marketplace distribution; include no paid licensing callbacks. Complete inline-control and internal Bitbucket acceptance before claiming those features work.
 - [ ] Remove `RELEASE_BLOCKED` only after completed runtime acceptance and review; enable only the reviewed CI workflow.

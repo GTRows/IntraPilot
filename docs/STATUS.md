@@ -24,6 +24,12 @@ Branch: development
   accepted design requirements, not implemented runtime features.
 - Requirements review added actual IntelliJ Bitbucket/token/service-switching
   observation and inline-toggle runtime scenarios to release acceptance.
+- Added requirements: independent switches for all user features and local
+  persisted input/output/total token usage with summary cards, daily graph,
+  model/feature breakdown, and honest incomplete-data coverage. Mandatory
+  security controls remain immutable. No usage ledger/dashboard is implemented.
+- Requirements review expanded switch coverage to retained file/context/search/
+  diagnostic/edit/write/task actions and requires a complete UI/tool-route map.
 
 - Cloud providers, telemetry, external tools, local inference, and network
   fallbacks still exist in inherited source. They have not been removed.
