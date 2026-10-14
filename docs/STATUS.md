@@ -1,6 +1,6 @@
 # Project status
 
-Date: 2026-10-13
+Date: 2026-10-14
 Branch: development
 
 ## Foundation
@@ -16,6 +16,14 @@ Branch: development
   `docs/DEVELOPMENT.md`; this is not plugin runtime functionality.
 
 ## Not yet delivered
+
+- Added requirements: free distribution, complete destination/source/package
+  inspection, independent inline-feature switches, and optional token-based
+  read-only internal Bitbucket. Internal Data Center/Server hosting was confirmed
+  by the user on 2026-10-14; exact deployment/version/auth remains unverified. These are
+  accepted design requirements, not implemented runtime features.
+- Requirements review added actual IntelliJ Bitbucket/token/service-switching
+  observation and inline-toggle runtime scenarios to release acceptance.
 
 - Cloud providers, telemetry, external tools, local inference, and network
   fallbacks still exist in inherited source. They have not been removed.

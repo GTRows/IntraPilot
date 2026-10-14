@@ -5,7 +5,8 @@
 - Use English for code, comments, and repository documents. Use no emojis.
 - Work and commit on `development`. Keep the upstream remote for provenance; never push to upstream.
 - Preserve the Apache-2.0 license and applicable third-party notices. Record changes to inherited files.
-- The product connects to explicitly approved organization-hosted model servers. It never runs inference on the workstation.
+- The product is free. It connects only to approved organization-hosted model servers and an optional approved internal Bitbucket installation. It never runs inference on the workstation.
+- Source/prompt content must never leave the organization. Internal model requests are permitted; Bitbucket credentials never enter model context, logs, or project files. Bitbucket Cloud is excluded.
 - No public model providers, free-model catalogs, telemetry, analytics, remote crash reporting, account sync, plugin-owned update requests, external agents, remote MCP, model downloads, or internet tools.
 - Missing or invalid policy/model configuration must stop the request. Never fall back to another provider or endpoint.
 - Do not launch the inherited plugin. `config/security/STARTUP_BLOCKED` blocks Gradle execution until source-boundary review permits synthetic validation. `RELEASE_BLOCKED` separately blocks signing/publication until runtime acceptance.

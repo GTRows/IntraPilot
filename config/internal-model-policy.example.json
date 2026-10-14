@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "approvedDestinations": [],
+  "approvedBitbucketDestinations": [],
   "approvedModelIds": [],
   "allowPublicNetwork": false,
   "allowProviderFallback": false,
@@ -8,5 +9,10 @@
   "allowLocalInference": false,
   "allowExternalAgents": false,
   "allowShellExecution": false,
-  "allowRemoteMcp": false
+  "allowRemoteMcp": false,
+  "features": {
+    "inlineEditEnabled": false,
+    "inlineCompletionEnabled": false,
+    "nextEditEnabled": false
+  }
 }

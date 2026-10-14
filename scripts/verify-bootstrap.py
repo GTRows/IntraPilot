@@ -60,7 +60,10 @@ def main():
 
     policy = json.loads((ROOT / "config/internal-model-policy.example.json").read_text())
     require(policy["approvedDestinations"] == [] and policy["approvedModelIds"] == [], "Example must contain no deployment values")
+    require(policy["approvedBitbucketDestinations"] == [], "Example must contain no internal Bitbucket address")
     require(all(value is False for key, value in policy.items() if key.startswith("allow")), "Example allows a forbidden surface")
+    require(set(policy["features"]) == {"inlineEditEnabled", "inlineCompletionEnabled", "nextEditEnabled"}, "Missing independent inline controls")
+    require(all(value is False for value in policy["features"].values()), "Inline features must start disabled")
 
     resources = ROOT / "src/main/resources"
     for logo in LOGOS:

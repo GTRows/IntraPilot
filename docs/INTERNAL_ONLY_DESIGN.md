@@ -1,6 +1,6 @@
 # IntraPilot internal-only design
 
-Date: 2026-10-13
+Date: 2026-10-14
 Status: project foundation; runtime conversion not implemented
 Upstream baseline: `carlrobertoh/ProxyAI@1c7a8569fe5e34bb64cbc10fa32e6918e8358d98`
 
@@ -11,6 +11,10 @@ connects only to an organization's own approved model servers, including Qwen.
 The user explicitly requires a new name/logo, eventual JetBrains Marketplace
 publication, no cloud/free-provider catalog, no workstation inference, no
 telemetry, and no internet data output.
+The user also requires free distribution, independent inline-feature toggles,
+and token-authenticated Bitbucket integration. The user confirmed organization-
+hosted Bitbucket Data Center/Server on 2026-10-14. Exact version, endpoint,
+authentication permissions, and actual connectivity remain deployment checks.
 
 Product identity: IntraPilot. Plugin ID: `io.github.gtrows.intrapilot`.
 Source: `https://github.com/GTRows/IntraPilot`.
@@ -42,6 +46,11 @@ The original vector logo uses enclosed code brackets and an internal node.
   public provider or silently switch destination/model.
 - The organization verifies that the gateway serves its internal models and
   does not forward traffic to a public inference service.
+- The only additional network service is optional, separately approved internal
+  Bitbucket. No Bitbucket Cloud, public REST API, public Git remote, or generic
+  URL/network tool is introduced. Token auth does not waive destination policy.
+- No code/context leaves the organization. Requests to the approved internal
+  model server necessarily transmit selected context from the workstation.
 - Enforce outbound denial on the deployment independently of plugin code.
   A plugin in a shared IDE process cannot guarantee all host traffic is local.
 
@@ -63,6 +72,27 @@ Edits require a diff and explicit approval. A failed/cancelled approval or
 security hook denies the operation. Reads/searches/edits stay inside approved
 project roots, including symlink/junction resolution. Treat source-file
 instructions and model tool arguments as untrusted input.
+
+## Inline controls and internal Bitbucket
+
+Provide separate persistent switches for inline edit, inline completion, and
+next edit. Start all three disabled. Disabling a switch cancels/suppresses its
+requests, context collection, scheduling, and pending result application without
+disabling chat/agent. Completion/next edit require a compatible approved
+internal model; otherwise show the unavailable capability and keep them off.
+
+Bitbucket scope begins with read-only repositories, branches, commits, PRs and
+diffs. Token storage uses IntelliJ PasswordSafe; neither the token nor auth
+headers are given to the model or persisted in project/config/log/export data.
+Attach selected Bitbucket context to the internal model only through the same
+reviewed context-selection rules as local files. No write/merge/push/comments
+or external code hosting are implied by connecting an account.
+
+The approved deployment supplies the Bitbucket service and token locally.
+Version/auth compatibility is verified with synthetic fixtures before any real
+connection. Policy validates every request and pagination/redirect destination.
+The user confirmed internal hosting; verify its exact deployment locally. Never enable a public
+fallback or ask for production credentials in the public development project.
 
 ## Source conversion
 
@@ -104,6 +134,8 @@ Plugin Verifier results, license/attribution checks, listing assets, privacy
 statement, and signing configuration. Tokens/certificates stay outside source.
 The first release is uploaded only after the package is concrete and reviewed.
 Marketplace approval is external and cannot be promised.
+Choose free distribution. No paid-plugin purchase, subscription, or license-
+verification network flow belongs in the product.
 
 Runtime no-egress does not mean an IDE can download/update a Marketplace plugin
 without network access. Restricted deployments use an offline reviewed ZIP and

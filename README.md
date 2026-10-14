@@ -11,6 +11,9 @@ must not be installed or launched on confidential projects.**
 ## Required product behavior
 
 - Connect only to explicitly approved internal model servers, including Qwen.
+- Free distribution; no paid-plugin licensing calls.
+- Optional token-authenticated read-only internal Bitbucket connection; no Bitbucket Cloud.
+- Separate inline edit/completion/next-edit switches, initially disabled.
 - No public cloud/free-model providers or fallback.
 - No model inference, model weights, or model server running on the workstation.
 - No telemetry, analytics, remote crash reports, account sync, or plugin-owned

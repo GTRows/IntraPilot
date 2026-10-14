@@ -18,6 +18,9 @@
 - Unconfigured or invalid policy denies requests. Never migrate upstream settings into trusted policy.
 - Preserve original licenses and relevant notices. Mark changes to inherited files.
 - The project foundation is not a secure product release. Keep publication blocked until complete acceptance.
+- Distribution is free. Source/context must never leave the organization; only approved internal model requests and optional read-only internal Bitbucket requests are permitted.
+- Bitbucket Cloud is excluded. The user confirmed internal Data Center/Server hosting; exact version/endpoint/auth are verified locally. Credentials stay in PasswordSafe, never prompts/config/logs.
+- Inline edit, completion, and next edit have independent persistent controls, initially off. Disabled features may not collect context, request, schedule, or apply results.
 
 ## Review focus
 
@@ -53,6 +56,7 @@
 - [ ] Replace provider selection/catalog with administrator-approved internal models only; reuse no upstream defaults.
 - [ ] Test `ModelSettings` across fresh install, missing/deleted/renamed models, old settings, feature routing, subagent routing, and network failure. Every invalid case must stop rather than choose another provider/model.
 - [ ] Verify mock chat-completions streaming, tool calls, authentication, cancellation, retries, and server error handling. Log no request bodies, prompt text, source content, or credentials.
+- [ ] Inventory every literal/dynamic destination in source, generated code, libraries/native payloads, and final distribution. Test policy against redirects, proxy/DNS changes, response-supplied paging links, and background requests.
 
 ## Task 3: Retained tools and approval boundary
 
@@ -65,6 +69,28 @@
 - [ ] Test outside-project reads/writes, traversal, junctions, model-generated unsafe paths, denied edits, cancellation, hook failure, and approval exceptions.
 - [ ] Verify no arbitrary command, external agent, run/debug process, remote MCP, URL fetch, or model download tool is registered or reachable.
 - [ ] Verify agent/subagent iterations with the internal client's synthetic tool-capable server.
+
+## Task 3a: Independent inline-feature controls
+
+**Files:** `settings/configuration/ConfigurationSettings.kt`, `settings/configuration/ConfigurationComponent.java`, `settings/configuration/CodeCompletionConfigurationForm.kt`, `inlineedit/`, `codecompletions/`, `nextedit/`, and their actual registered provider/listener callers (resolve callers before editing).
+
+**Consumes:** approved internal feature/model routing. **Produces:** persistent independent inline-edit, completion, and next-edit switches, all defaulting off.
+
+- [ ] Trace each feature's invocation, context collection, scheduling, request, cancellation, and result application before edits.
+- [ ] Add independent switches and capability validation; no unsupported model fallback.
+- [ ] Test fresh install, restart, toggling one feature independently, disabling during in-flight work, and configuration/capability changes. Assert no network/context collection or delayed application while disabled.
+
+## Task 3b: Optional internal Bitbucket connection
+
+**Files:** create a scoped Bitbucket service/settings module and synthetic integration tests under `src/main/kotlin/ee/carlrobert/codegpt/` and `src/test/kotlin/ee/carlrobert/codegpt/`; extend the internal destination policy and context selection UI.
+
+**Consumes:** approved destination/path/method enforcement. **Produces:** token-authenticated read-only internal Bitbucket repositories/branches/commits/PRs/diffs.
+
+- [ ] Verify the user-confirmed internal Data Center/Server deployment's exact endpoint and API/auth version locally; Bitbucket Cloud cannot satisfy this contract.
+- [ ] Store/remove the service-scoped token using PasswordSafe. Reject unapproved/public service URLs before attaching credentials or sending requests.
+- [ ] Implement read-only API operations and explicit context selection. Include no git push, merge, PR/comment write, webhook, external browser login, public API, or MCP dependency.
+- [ ] Test expired/revoked/missing tokens, redaction, service switching, malicious paging URLs, redirects, outside-policy origins/paths/methods, and public-host denial using synthetic fixtures.
+- [ ] Assert auth secrets never appear in model messages, plain config, logs, exports, or redirected requests.
 
 ## Task 4: Branding, settings, and package checks
 
@@ -87,7 +113,9 @@
 - [ ] Obtain administrator-managed policy/egress deployment details locally, without placing them in the public repository.
 - [ ] Verify the internal gateway serves only approved internal models and native tools, with no external forwarding.
 - [ ] Observe actual IntelliJ DNS/network/process activity across startup, idle, chat, edit, tools, cancellation, errors, migration, and delayed background behavior using synthetic data. Test blocked public destinations independently.
+- [ ] Exercise real IntelliJ Bitbucket reads/paging, token rotation/removal, and service switching against an approved internal test service with synthetic content/test credentials. Observe request origins and confirm auth headers never reach the model or another origin. Exercise inline toggles during active requests in the same runtime observation.
 - [ ] Review the built artifact, transitive licenses, test evidence, compatible IDE range, privacy text, and release listing.
+- [ ] Choose free Marketplace distribution; include no paid licensing callbacks. Complete inline-control and internal Bitbucket acceptance before claiming those features work.
 - [ ] Remove `RELEASE_BLOCKED` only after completed runtime acceptance and review; enable only the reviewed CI workflow.
 - [ ] Configure signing and publishing credentials outside the repository; prepare the final reviewed ZIP and Marketplace submission. First upload is manual and Marketplace approval is external.
 
